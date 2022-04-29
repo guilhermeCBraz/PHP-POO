@@ -4,7 +4,7 @@ class Conta
 {
     public string $cpf;
     public string $nomeTitular;
-    public float $saldo;
+    private float $saldo = 0;
 
     public function sacar(float $valorASacar)
     {
@@ -15,8 +15,28 @@ class Conta
         }
     }
 
-    public function depositar(float $valorADepositar)
+    public function depositar(float $valorADepositar): void
     {
-        $this->saldo += $valorADepositar;
+        if ($valorADepositar < 0) {
+            echo "O valor precisa ser positivo";
+        } else {
+            $this->saldo += $valorADepositar;
+        }
+    }
+
+    public function transferir(float $valorATransferir, Conta $contaDestino): void
+    {
+        if ($valorATransferir < 0) {
+            echo "O valor precisar ser positivo";
+            return;
+        }
+
+        if ($valorATransferir > $this->saldo) {
+            echo "Você não possui saldo suficiente para efetuar a transferência";
+            return;
+        }
+
+        $this->sacar($valorATransferir);
+        $contaDestino->depositar($valorATransferir);
     }
 }
