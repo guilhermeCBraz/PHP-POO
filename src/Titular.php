@@ -5,7 +5,8 @@ class Titular
 
     public function __construct(
         private string $nome,
-        private Cpf $cpf
+        private Cpf $cpf,
+        private Endereco $endereco
     ) {
         $this->validaNomeTitular($this->nome);
     }
@@ -26,5 +27,10 @@ class Titular
             echo "Nome precisa ter pelo menos 5 caracteres" . PHP_EOL;
             exit();
         }
+    }
+
+    public function recuperaEndereco(): Endereco
+    {
+        return $this->endereco;
     }
 }
