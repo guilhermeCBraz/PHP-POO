@@ -2,18 +2,18 @@
 
 class Conta
 {
-    private string $cpfTitular;
-    private string $nomeTitular;
-    private float $saldo = 0;
+    private float $saldo;
+    private static $numeroContas = 0;
 
-    public function __construct(string $cpf, string $nomeTitular)
-    {
-        $this->saldo        = 0;
-        $this->cpfTitular   = $cpf;
-        $this->nomeTitular  = $nomeTitular;
+
+    public function __construct(
+        private Titular $titular
+    ) {
+        $this->saldo = 0;
+        self::$numeroContas++;
     }
 
-    public function saca(float $valorASacar): void
+    public function saca(float $valorASacar)
     {
         if ($valorASacar > $this->saldo) {
             echo "Saldo indisponível";
@@ -33,7 +33,7 @@ class Conta
         $this->saldo += $valorADepositar;
     }
 
-    public function transfere(float $valorATransferir, Conta $contaDestino): void
+    public function transferi(float $valorATransferir, Conta $contaDestino): void
     {
         if ($valorATransferir < 0) {
             echo "O valor precisar ser positivo";
@@ -54,14 +54,18 @@ class Conta
         return $this->saldo;
     }
 
-
-    public function recuperaCpf(): string
-    {
-        return $this->cpfTitular;
-    }
-
     public function recuperaNomeTitular(): string
     {
-        return $this->nomeTitular;
+        return $this->titular->recuperaNome();
+    }
+
+    public function recuperaCpfTitular(): string
+    {
+        return $this->titular->recuperaCpf();
+    }
+
+    public static function recuperaNumeroContas(): int
+    {
+        return self::$numeroContas;
     }
 }
