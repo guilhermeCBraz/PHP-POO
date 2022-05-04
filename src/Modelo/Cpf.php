@@ -1,5 +1,7 @@
 <?php
 
+namespace Alura\Banco\Modelo;
+
 class Cpf
 {
     public function __construct(private string $numero)

@@ -1,5 +1,7 @@
 <?php
 
+namespace Alura\Banco\Modelo\Conta;
+
 class Titular extends Pessoa
 {
     private Endereco $endereco;
@@ -8,16 +10,6 @@ class Titular extends Pessoa
     {
         parent::__construct($nome, $cpf);
         $this->endereco = $endereco;
-    }
-
-    public function recuperaNome(): string
-    {
-        return $this->nome;
-    }
-
-    public function recuperaCpf(): string
-    {
-        return $this->cpf->recuperaNumero();
     }
 
     public function recuperaEndereco(): Endereco
